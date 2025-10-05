@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-header">
+            <div class="text-center">
+                <h1 class="mb-2">
+                    <i class="bi bi-speedometer2 text-primary"></i> Dashboard
+                </h1>
+                <p class="text-muted mb-0">Welcome to your Inventory Management System</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stats-card">
+            <i class="bi bi-box stats-icon text-primary"></i>
+            <h3 class="mb-2">{{ products_count }}</h3>
+            <h6 class="text-muted mb-3">Products</h6>
+            <a href="{{ url_for('products') }}" class="btn btn-primary">
+                <i class="bi bi-eye"></i> View All
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <i class="bi bi-geo-alt stats-icon text-success"></i>
+            <h3 class="mb-2">{{ locations_count }}</h3>
+            <h6 class="text-muted mb-3">Locations</h6>
+            <a href="{{ url_for('locations') }}" class="btn btn-success">
+                <i class="bi bi-eye"></i> View All
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <i class="bi bi-arrow-left-right stats-icon text-warning"></i>
+            <h3 class="mb-2">{{ movements_count }}</h3>
+            <h6 class="text-muted mb-3">Movements</h6>
+            <a href="{{ url_for('movements') }}" class="btn btn-warning">
+                <i class="bi bi-eye"></i> View All
+            </a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <i class="bi bi-graph-up stats-icon text-info"></i>
+            <h3 class="mb-2">Report</h3>
+            <h6 class="text-muted mb-3">Balance</h6>
+            <a href="{{ url_for('balance') }}" class="btn btn-info">
+                <i class="bi bi-graph-up"></i> View Report
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-info-circle text-primary"></i> System Overview
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    This system helps you manage your inventory across multiple locations. 
+                    You can add products, create locations, track movements, and view balance reports.
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary mb-3">Key Features:</h6>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Product Management</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Location Management</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Movement Tracking</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Balance Reports</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Search & Filter</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-primary mb-3">Quick Actions:</h6>
+                        <div class="d-grid gap-2">
+                            <a href="{{ url_for('add_product') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Add New Product
+                            </a>
+                            <a href="{{ url_for('add_location') }}" class="btn btn-success">
+                                <i class="bi bi-plus-circle"></i> Add New Location
+                            </a>
+                            <a href="{{ url_for('add_movement') }}" class="btn btn-warning">
+                                <i class="bi bi-plus-circle"></i> Add New Movement
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightbulb text-warning"></i> Tips
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6 class="text-primary">Search Functionality</h6>
+                    <p class="small text-muted">Use the search bars on each page to quickly find specific items by ID, name, or description.</p>
+                </div>
+                <div class="mb-3">
+                    <h6 class="text-primary">Movement Types</h6>
+                    <p class="small text-muted">Movements can be incoming (to location only), outgoing (from location only), or transfers (both locations).</p>
+                </div>
+                <div class="mb-3">
+                    <h6 class="text-primary">Balance Reports</h6>
+                    <p class="small text-muted">View current inventory levels across all locations with automatic calculations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

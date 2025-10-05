@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Balance Report - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-2"><i class="bi bi-graph-up text-info"></i> Balance Report</h1>
+                    <p class="text-muted mb-0">Current inventory balance across all locations</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('add_movement') }}" class="btn btn-info">
+                        <i class="bi bi-plus-circle"></i> Add Movement
+                    </a>
+                    <button onclick="window.print()" class="btn btn-secondary">
+                        <i class="bi bi-printer"></i> Print Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-box-seam"></i> Current Inventory Balance by Location
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if balance_data %}
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th><i class="bi bi-hash"></i> Product ID</th>
+                                    <th><i class="bi bi-tag"></i> Product Name</th>
+                                    <th><i class="bi bi-geo-alt"></i> Location ID</th>
+                                    <th><i class="bi bi-building"></i> Location Name</th>
+                                    <th class="text-end"><i class="bi bi-123"></i> Balance Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in balance_data %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-primary">{{ item.product_id }}</span>
+                                    </td>
+                                    <td><strong>{{ item.product_name }}</strong></td>
+                                    <td>
+                                        <span class="badge bg-success">{{ item.location_id }}</span>
+                                    </td>
+                                    <td>{{ item.location_name }}</td>
+                                    <td class="text-end">
+                                        <span class="badge bg-info fs-6">{{ item.balance }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-light">
+                                    <td colspan="4"><strong>Total Items with Stock:</strong></td>
+                                    <td class="text-end">
+                                        <strong class="badge bg-secondary fs-6">{{ balance_data|length }}</strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <i class="bi bi-info-circle"></i> Report Information
+                                    </h6>
+                                    <p class="card-text small">
+                                        This report shows the current balance of all products in each location. 
+                                        Only locations with positive stock quantities are displayed.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <i class="bi bi-calculator"></i> Calculation Method
+                                    </h6>
+                                    <p class="card-text small">
+                                        Balance = (Total Incoming Quantity) - (Total Outgoing Quantity)<br>
+                                        Incoming: Movements where this location is the destination<br>
+                                        Outgoing: Movements where this location is the source
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <i class="bi bi-graph-up text-muted"></i>
+                        <h5 class="text-muted mt-3">No inventory data found</h5>
+                        <p class="text-muted">Add some products, locations, and movements to see the balance report.</p>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <a href="{{ url_for('add_product') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Add Product
+                            </a>
+                            <a href="{{ url_for('add_location') }}" class="btn btn-success">
+                                <i class="bi bi-plus-circle"></i> Add Location
+                            </a>
+                            <a href="{{ url_for('add_movement') }}" class="btn btn-warning">
+                                <i class="bi bi-plus-circle"></i> Add Movement
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+    @media print {
+        .btn, .navbar, .card-header {
+            display: none !important;
+        }
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .table {
+            font-size: 12px;
+        }
+    }
+</style>
+{% endblock %}

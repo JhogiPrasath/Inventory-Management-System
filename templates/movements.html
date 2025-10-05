@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Movements - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-2"><i class="bi bi-arrow-left-right text-warning"></i> Product Movements</h1>
+                    <p class="text-muted mb-0">Track inventory movements between locations</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('add_movement') }}" class="btn btn-warning">
+                        <i class="bi bi-plus-circle"></i> Add New Movement
+                    </a>
+                    {% if movements %}
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAllModal">
+                        <i class="bi bi-trash"></i> Delete All
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Section -->
+<div class="row">
+    <div class="col-12">
+        <div class="search-container">
+            <form method="GET" class="d-flex">
+                <div class="position-relative flex-grow-1 me-3">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" 
+                           class="form-control search-input" 
+                           name="search" 
+                           value="{{ search_query or '' }}"
+                           placeholder="Search movements by ID, product, or location...">
+                </div>
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-search"></i> Search
+                </button>
+                {% if search_query %}
+                <a href="{{ url_for('movements') }}" class="btn btn-secondary ms-2">
+                    <i class="bi bi-x-circle"></i> Clear
+                </a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body p-0">
+                {% if movements %}
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th><i class="bi bi-hash"></i> Movement ID</th>
+                                    <th><i class="bi bi-clock"></i> Timestamp</th>
+                                    <th><i class="bi bi-box"></i> Product</th>
+                                    <th><i class="bi bi-arrow-up-left"></i> From Location</th>
+                                    <th><i class="bi bi-arrow-down-right"></i> To Location</th>
+                                    <th><i class="bi bi-123"></i> Quantity</th>
+                                    <th><i class="bi bi-gear"></i> Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for movement in movements %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-warning">{{ movement.movement_id }}</span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ movement.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">{{ movement.product_id }}</span>
+                                        <br><small class="text-muted">{{ movement.product.name }}</small>
+                                    </td>
+                                    <td>
+                                        {% if movement.from_location %}
+                                            <span class="badge bg-secondary">{{ movement.from_location }}</span>
+                                            <br><small class="text-muted">{{ movement.from_loc.name }}</small>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if movement.to_location %}
+                                            <span class="badge bg-success">{{ movement.to_location }}</span>
+                                            <br><small class="text-muted">{{ movement.to_loc.name }}</small>
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info fs-6">{{ movement.qty }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('edit_movement', movement_id=movement.movement_id) }}" 
+                                               class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a href="{{ url_for('delete_movement', movement_id=movement.movement_id) }}" 
+                                               class="btn btn-danger btn-sm"
+                                               onclick="return confirm('Are you sure you want to delete this movement?')">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if search_query %}
+                    <div class="p-3 bg-light border-top">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle"></i> 
+                            Found {{ movements|length }} movement(s) matching "{{ search_query }}"
+                        </small>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <div class="empty-state">
+                        {% if search_query %}
+                            <i class="bi bi-search text-muted"></i>
+                            <h5 class="text-muted mt-3">No movements found</h5>
+                            <p class="text-muted">No movements match your search criteria "{{ search_query }}"</p>
+                            <a href="{{ url_for('movements') }}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> View All Movements
+                            </a>
+                        {% else %}
+                            <i class="bi bi-arrow-left-right text-muted"></i>
+                            <h5 class="text-muted mt-3">No movements found</h5>
+                            <p class="text-muted">Start by adding your first movement.</p>
+                            <a href="{{ url_for('add_movement') }}" class="btn btn-warning">
+                                <i class="bi bi-plus-circle"></i> Add New Movement
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete All Modal -->
+<div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAllModalLabel">
+                    <i class="bi bi-exclamation-triangle text-warning"></i> Delete All Movements
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong>all {{ movements|length }} movements</strong>?</p>
+                <p class="text-danger">
+                    <strong>Warning:</strong> This action cannot be undone. This will also reset all inventory balances to zero.
+                </p>
+                <p>This will allow you to delete products and locations that currently have associated movements.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('delete_all_movements') }}" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Delete All Movements
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

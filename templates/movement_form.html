@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-arrow-left-right"></i> {{ title }}</h1>
+            <a href="{{ url_for('movements') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Movements
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Movement Information</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.movement_id.label(class="form-label") }}
+                        {% if title == 'Edit Movement' %}
+                            {{ form.movement_id(class="form-control", readonly=true) }}
+                            <small class="form-text text-muted">Movement ID cannot be changed after creation.</small>
+                        {% else %}
+                            {{ form.movement_id(class="form-control") }}
+                        {% endif %}
+                        {% if form.movement_id.errors %}
+                            <div class="text-danger">
+                                {% for error in form.movement_id.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.product_id.label(class="form-label") }}
+                        {{ form.product_id(class="form-control") }}
+                        {% if form.product_id.errors %}
+                            <div class="text-danger">
+                                {% for error in form.product_id.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.from_location.label(class="form-label") }}
+                                {{ form.from_location(class="form-control") }}
+                                {% if form.from_location.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.from_location.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.to_location.label(class="form-label") }}
+                                {{ form.to_location(class="form-control") }}
+                                {% if form.to_location.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.to_location.errors %}
+                                            <small>{{ error }}</small>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.qty.label(class="form-label") }}
+                        {{ form.qty(class="form-control") }}
+                        {% if form.qty.errors %}
+                            <div class="text-danger">
+                                {% for error in form.qty.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        {{ form.submit(class="btn btn-primary") }}
+                        <a href="{{ url_for('movements') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Help</h5>
+            </div>
+            <div class="card-body">
+                <h6>Movement ID</h6>
+                <p class="small text-muted">A unique identifier for this movement transaction.</p>
+                
+                <h6>Product</h6>
+                <p class="small text-muted">Select the product being moved from the dropdown list.</p>
+                
+                <h6>From Location</h6>
+                <p class="small text-muted">Select the source location. Leave blank if this is an incoming shipment.</p>
+                
+                <h6>To Location</h6>
+                <p class="small text-muted">Select the destination location. Leave blank if this is an outgoing shipment.</p>
+                
+                <h6>Quantity</h6>
+                <p class="small text-muted">The number of units being moved. Must be a positive number.</p>
+                
+                <div class="alert alert-info mt-3">
+                    <small>
+                        <strong>Note:</strong> At least one location (from or to) must be selected. 
+                        You can move products between locations, or move them in/out of the system.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
