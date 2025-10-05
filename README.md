@@ -174,92 +174,28 @@ python add_sample_data.py
 ## Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
-*The main dashboard shows system overview with animated stats cards, quick access buttons, and helpful tips section.*
+<img width="1919" height="970" alt="image" src="https://github.com/user-attachments/assets/3c07adef-7245-4761-b65c-0cfcb1ec053d" />
+
 
 ### Products Management
-![Products Page](screenshots/products.png)
-*Clean interface for managing products with search functionality, add, edit, and delete capabilities.*
+<img width="1919" height="971" alt="image" src="https://github.com/user-attachments/assets/257c5997-0975-4a34-9f62-e37bd52af784" />
 
-### Product Search
-![Product Search](screenshots/product-search.png)
-*Real-time search functionality across product ID, name, and description fields.*
 
 ### Locations Management
-![Locations Page](screenshots/locations.png)
-*Easy-to-use location management with address tracking and search capabilities.*
+<img width="1916" height="969" alt="image" src="https://github.com/user-attachments/assets/c2c916a5-0aff-4632-aaaf-8fcd9a587e73" />
+
 
 ### Movement Tracking
-![Movements Page](screenshots/movements.png)
-*Comprehensive movement tracking with support for incoming, outgoing, and transfer movements.*
+<img width="1918" height="970" alt="image" src="https://github.com/user-attachments/assets/6e8a0af1-64a5-4db8-b04c-c08e289a004d" />
 
-### Movement Search
-![Movement Search](screenshots/movement-search.png)
-*Advanced search functionality across movements, products, and locations.*
 
 ### Balance Report
-![Balance Report](screenshots/balance.png)
-*Detailed balance report showing current inventory levels across all locations with print functionality.*
+<img width="1919" height="967" alt="image" src="https://github.com/user-attachments/assets/3ec63b37-c2c7-4e66-a048-2d4d7e4b37c5" />
 
-### Add Product Form
-![Add Product](screenshots/add-product.png)
-*Modern form design with validation and helpful tooltips.*
 
-### Add Movement Form
-![Add Movement](screenshots/add-movement.png)
-*Intuitive movement form with dropdown selections and validation.*
-
-### Mobile Responsive Design
-![Mobile View](screenshots/mobile.png)
-*Fully responsive design that works seamlessly on mobile devices.*
-
-## How to Take Screenshots
-
-To add screenshots to your README:
-
-1. **Create a screenshots folder (if it doesn't exist):**
-   ```bash
-   mkdir screenshots
-   ```
-
-2. **Take screenshots of each page:**
-   - Dashboard: `http://localhost:5000`
-   - Products: `http://localhost:5000/products`
-   - Product Search: `http://localhost:5000/products?search=laptop`
-   - Locations: `http://localhost:5000/locations`
-   - Movements: `http://localhost:5000/movements`
-   - Movement Search: `http://localhost:5000/movements?search=P001`
-   - Balance Report: `http://localhost:5000/balance`
-   - Add Product: `http://localhost:5000/products/add`
-   - Add Movement: `http://localhost:5000/movements/add`
-
-3. **Save screenshots with these exact names:**
-   - `dashboard.png`
-   - `products.png`
-   - `product-search.png`
-   - `locations.png`
-   - `movements.png`
-   - `movement-search.png`
-   - `balance.png`
-   - `add-product.png`
-   - `add-movement.png`
-   - `mobile.png` (optional - mobile view)
-
-4. **Recommended screenshot settings:**
-   - Use a modern browser (Chrome, Firefox, Edge)
-   - Set browser zoom to 100%
-   - Use a resolution of 1920x1080 or higher
-   - Capture the full page or main content area
-   - Ensure the application is running with sample data
-
-5. **Taking screenshots:**
-   - Use the URLs listed above to open pages individually
-   - Take screenshots of each page as you navigate through them
 
 ## License
 
 This project is created as part of a Flask hiring test and is for demonstration purposes.
 
-## Contact
 
-For questions or support, please contact the development team.
