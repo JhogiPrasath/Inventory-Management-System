@@ -25,38 +25,12 @@ A Flask-based web application for managing inventory across multiple locations. 
 - Automatic timestamp tracking for all movements
 - Balance calculation based on incoming vs outgoing quantities
 
-## Installation & Setup
+## Installation
 
 ### Prerequisites
 
 - Python 3.7 or higher
 - pip (Python package installer)
-
-### Installation Steps
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd inventory
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Initialize the database with sample data**
-   ```bash
-   python add_sample_data.py
-   ```
-
-4. **Run the application**
-   ```bash
-   python app.py
-   ```
-
-5. **Access the application**
-   Open your web browser and navigate to `http://localhost:5000`
 
 ## Usage
 
@@ -114,63 +88,6 @@ The application comes with pre-loaded sample data including:
 - Print-friendly balance reports
 - Clean, modern UI with Bootstrap components
 
-### File Structure
-```
-inventory/
-├── app.py                 # Main Flask application
-├── add_sample_data.py     # Script to populate sample data
-├── requirements.txt       # Python dependencies
-├── inventory.db          # SQLite database (created on first run)
-├── templates/            # HTML templates
-│   ├── base.html         # Base template with navigation
-│   ├── index.html        # Dashboard
-│   ├── products.html     # Product listing
-│   ├── product_form.html # Product add/edit form
-│   ├── locations.html    # Location listing
-│   ├── location_form.html # Location add/edit form
-│   ├── movements.html    # Movement listing
-│   ├── movement_form.html # Movement add/edit form
-│   └── balance.html      # Balance report
-└── README.md             # This file
-```
-
-## API Endpoints
-
-- `GET /` - Dashboard
-- `GET /products` - List all products
-- `GET /products/add` - Add new product form
-- `POST /products/add` - Create new product
-- `GET /products/edit/<id>` - Edit product form
-- `POST /products/edit/<id>` - Update product
-- `GET /products/delete/<id>` - Delete product
-- `GET /locations` - List all locations
-- `GET /locations/add` - Add new location form
-- `POST /locations/add` - Create new location
-- `GET /locations/edit/<id>` - Edit location form
-- `POST /locations/edit/<id>` - Update location
-- `GET /locations/delete/<id>` - Delete location
-- `GET /movements` - List all movements
-- `GET /movements/add` - Add new movement form
-- `POST /movements/add` - Create new movement
-- `GET /movements/edit/<id>` - Edit movement form
-- `POST /movements/edit/<id>` - Update movement
-- `GET /movements/delete/<id>` - Delete movement
-- `GET /balance` - Balance report
-
-## Development
-
-### Running in Development Mode
-```bash
-python app.py
-```
-The application will run in debug mode with auto-reload enabled.
-
-### Database Reset
-To reset the database with fresh sample data:
-```bash
-python add_sample_data.py
-```
-
 ## Screenshots
 
 ### Dashboard
@@ -197,5 +114,6 @@ python add_sample_data.py
 ## License
 
 This project is created as part of a Flask hiring test and is for demonstration purposes.
+
 
 
